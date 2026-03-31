@@ -51,16 +51,12 @@
 
 <script setup>
 import { getImageUrl } from '@/utils/imageUrl'
+import { usePokemonStore } from '@/stores/pokemonStore'
 
 const route = useRoute()
+const pokemonStore = usePokemonStore()
 
-const pokemons = ref([])
 const pokemon = computed(() => {
-  return pokemons.value.find(p => p.id === route.params.id)
-})
-
-onMounted(async () => {
-  const response = await fetch('http://localhost:3535/pokemons')
-  pokemons.value = await response.json()
+  return pokemonStore.getPokemonById(route.params.id)
 })
 </script>

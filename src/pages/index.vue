@@ -20,12 +20,10 @@
 </template>
 
 <script setup>
+import { usePokemonStore } from '@/stores/pokemonStore'
+import { storeToRefs } from 'pinia'
 import PokemonCard from '@/components/PokemonCard.vue'
 
-const pokemons = ref([])
-
-onMounted(async () => {
-  const response = await fetch('http://localhost:3535/pokemons')
-  pokemons.value = await response.json()
-})
+const pokemonStore = usePokemonStore()
+const { pokemons } = storeToRefs(pokemonStore)
 </script>

@@ -1,79 +1,82 @@
 import { defineStore } from 'pinia'
+import api from '@/plugins/axios'
 
-/**
- * Store Pinia pour gérer les données des Pokémon.
- * Centralise les appels API et partage les données entre les pages.
- */
 export const usePokemonStore = defineStore('pokemon', {
-  /**
-   * State — les données brutes du store.
-   */
   state: () => ({
-    pokemons: [],
-    types: [],
     isLoading: false,
-    error: null,
+    types: [],
+    pokemons: [],
   }),
 
-  /**
-   * Getters — propriétés calculées basées sur le state.
-   */
   getters: {
-    totalPokemons: (state) => {
-      return state.pokemons.length
+    totalPokemons: state => state.pokemons.length,
+
+    getTypeById: state => typeId => {
+      return state.types.find(type => type.id === typeId)
     },
 
-    getPokemonById: (state) => {
-      return (pokemonId) => {
-        return state.pokemons.find(pokemon => pokemon.id === pokemonId)
-      }
+    getPokemonById: state => pokemonId => {
+      return state.pokemons.find(pokemon => pokemon.id === pokemonId)
     },
   },
 
-  /**
-   * Actions — méthodes qui modifient le state.
-   */
   actions: {
-    async fetchPokemons() {
-      const response = await fetch('http://localhost:3535/pokemons')
-
-      if (!response.ok) {
-        throw new Error(`Erreur HTTP : ${response.status}`)
-      }
-
-      this.pokemons = await response.json()
-      console.log('Pokémon chargés :', this.pokemons.length)
-    },
-
-    async fetchTypes() {
-      const response = await fetch('http://localhost:3535/types')
-
-      if (!response.ok) {
-        throw new Error(`Erreur HTTP : ${response.status}`)
-      }
-
-      this.types = await response.json()
-      console.log('Types chargés :', this.types.length)
-    },
-
-    async init() {
+    async init () {
       console.log('Initialisation du store Pokémon...')
-
       this.isLoading = true
-      this.error = null
 
       try {
         await Promise.all([
-          this.fetchPokemons(),
-          this.fetchTypes(),
+          this.fetchTypes({ withLoader: false }),
+          this.fetchPokemons({ withLoader: false }),
         ])
-
         console.log('Store Pokémon initialisé')
       } catch (error) {
-        this.error = 'Erreur lors du chargement des données'
-        console.error(error)
+        console.error('Erreur lors de l\'initialisation:', error)
       } finally {
         this.isLoading = false
+      }
+    },
+
+    async fetchTypes ({ withLoader = true } = {}) {
+      if (withLoader) this.isLoading = true
+
+      try {
+        const response = await api.get('/types')
+
+        if (response.data && response.data.data) {
+          this.types = response.data.data
+        } else if (response.data) {
+          this.types = response.data
+        } else {
+          this.types = []
+        }
+      } catch (error) {
+        console.error('Erreur lors du chargement des types:', error.message)
+        this.types = []
+      } finally {
+        if (withLoader) this.isLoading = false
+      }
+    },
+
+    async fetchPokemons ({ withLoader = true } = {}) {
+      if (withLoader) this.isLoading = true
+
+      try {
+        const response = await api.get('/pokemons')
+
+        if (response.data && response.data.data) {
+          this.pokemons = response.data.data
+        } else if (response.data) {
+          this.pokemons = response.data
+        } else {
+          this.pokemons = []
+        }
+      } catch (error) {
+        console.error('Erreur lors du chargement des Pokémon:', error.message)
+        this.pokemons = []
+      } finally {
+        if (withLoader) this.isLoading = false
       }
     },
   },

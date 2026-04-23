@@ -4,7 +4,32 @@
       Pokédex
     </h1>
 
-    <v-row>
+    <!-- État 1 : Chargement -->
+
+    <v-row v-if="isLoading">
+      <v-col
+        v-for="x in 8"
+        :key="x"
+        cols="12"
+        sm="6"
+        md="4"
+        lg="3"
+      >
+        <v-skeleton-loader
+          type="card"
+        />
+      </v-col>
+    </v-row>
+
+    <!-- État 2 : Erreur -->
+    <v-alert
+      v-else-if="error"
+      type="error"
+    >
+      Chargement impossible pour le moment !
+    </v-alert>
+
+    <v-row v-else>
       <v-col
         v-for="pokemon in pokemons"
         :key="pokemon.id"
@@ -25,5 +50,5 @@ import { storeToRefs } from 'pinia'
 import PokemonCard from '@/components/PokemonCard.vue'
 
 const pokemonStore = usePokemonStore()
-const { pokemons } = storeToRefs(pokemonStore)
+const { pokemons, isLoading, error } = storeToRefs(pokemonStore)
 </script>

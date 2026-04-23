@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-
+import api from '@/plugins/axios'
 /**
  * Store Pinia pour gérer les données des Pokémon.
  * Centralise les appels API et partage les données entre les pages.
@@ -35,14 +35,18 @@ export const usePokemonStore = defineStore('pokemon', {
    */
   actions: {
     async fetchPokemons() {
-      const response = await fetch('http://localhost:3535/pokemons')
+      let response = '';
 
-      if (!response.ok) {
-        throw new Error(`Erreur HTTP : ${response.status}`)
+      try {
+        // Récupère les pokémons avec Axios
+        response = await api.get('/pokemons')
+        this.pokemons = response.data
+      } catch (error) {
+        // Fallback : charger les données mockées
+        const response = await fetch('/data/pokemons.json', {})
+        this.pokemons = await response.json()
       }
-
-      this.pokemons = await response.json()
-      console.log('Pokémon chargés :', this.pokemons.length)
+      // console.log('Pokémon chargés :', this.pokemons.length)
     },
 
     async fetchTypes() {

@@ -1,0 +1,8 @@
+[
+  { "id": 1, "name": "Normal", "color": "#A8A878" },
+  { "id": 2, "name": "Feu", "color": "#F08030" },
+  { "id": 3, "name": "Eau", "color": "#6890F0" },
+  { "id": 4, "name": "Plante", "color": "#78C850" },
+  { "id": 5, "name": "Électrique", "color": "#F8D030" },
+  { "id": 6, "name": "Poison", "color": "#A040A0" }
+]

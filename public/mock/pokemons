@@ -1,0 +1,47 @@
+[
+  {
+    "id": "1",
+    "name": "Pikachu",
+    "types": [5],
+    "level": 35,
+    "img": "pikachu.png",
+    "description": "Quand plusieurs de ces Pokémon se réunissent, leur énergie peut provoquer de violents orages.",
+    "stats": { "hp": 35, "attack": 55, "defense": 40, "speed": 90 }
+  },
+  {
+    "id": "2",
+    "name": "Bulbizarre",
+    "types": [4, 6],
+    "level": 12,
+    "img": "bulbizarre.png",
+    "description": "Il a une étrange graine plantée sur son dos. Elle grandit avec lui depuis la naissance.",
+    "stats": { "hp": 45, "attack": 49, "defense": 49, "speed": 45 }
+  },
+  {
+    "id": "3",
+    "name": "Carapuce",
+    "types": [3],
+    "level": 8,
+    "img": "carapuce.png",
+    "description": "Son dos rond est recouvert d'une carapace qui lui sert de protection.",
+    "stats": { "hp": 44, "attack": 48, "defense": 65, "speed": 43 }
+  },
+  {
+    "id": "4",
+    "name": "Dracaufeu",
+    "types": [2],
+    "level": 60,
+    "img": "dracaufeu.png",
+    "description": "Il crache du feu si fort qu'il fait fondre les rochers. Il provoque parfois des incendies.",
+    "stats": { "hp": 78, "attack": 84, "defense": 78, "speed": 100 }
+  },
+  {
+    "id": "5",
+    "name": "Rondoudou",
+    "types": [1],
+    "level": 20,
+    "img": "rondoudou.png",
+    "description": "Quand ses grands yeux s'illuminent, il chante une berceuse mystérieuse.",
+    "stats": { "hp": 115, "attack": 45, "defense": 20, "speed": 20 }
+  }
+]

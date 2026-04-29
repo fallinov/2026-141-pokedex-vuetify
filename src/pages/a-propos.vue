@@ -10,7 +10,7 @@
     >
       <v-card-text>
         <p class="text-body-1 mb-4">
-          Le <strong>Pokédex</strong> est une encyclopédie électronique portable conçue pour
+          Le <strong>Pokédex 245</strong> est une encyclopédie électronique portable conçue pour
           cataloguer et fournir des informations sur les différentes espèces de Pokémon.
         </p>
         <p class="text-body-1 mb-4">
